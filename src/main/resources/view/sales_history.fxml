@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.shopmanager.controller.SalesHistoryController">
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="appbar">
+            <children>
+                <Button fx:id="backBtn" text="← Retour" />
+                <Label text="Historique des ventes" styleClass="title" />
+                <Pane HBox.hgrow="ALWAYS" />
+                <Label text="Du:" />
+                <DatePicker fx:id="fromDate" />
+                <Label text="Au:" />
+                <DatePicker fx:id="toDate" />
+                <Label text="Client:" />
+                <ComboBox fx:id="customerFilter" prefWidth="200" />
+                <Button fx:id="resetFiltersBtn" text="Réinitialiser" styleClass="ghost" />
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="12" styleClass="p-large">
+            <children>
+                <TableView fx:id="table" prefHeight="600">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="80" />
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="180" />
+                        <TableColumn fx:id="colCustomer" text="Client" prefWidth="200" />
+                        <TableColumn fx:id="colItems" text="Articles" prefWidth="100" />
+                        <TableColumn fx:id="colVat" text="TVA" prefWidth="120" />
+                        <TableColumn fx:id="colTotal" text="Total" prefWidth="140" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

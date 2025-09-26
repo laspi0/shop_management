@@ -9,6 +9,7 @@ import com.shopmanager.repository.SaleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class SaleService {
     private final SaleRepository saleRepo = new SaleRepository();
@@ -48,5 +49,13 @@ public class SaleService {
         }
         saleRepo.save(sale);
         toUpdate.forEach(productRepo::update);
+    }
+
+    public List<Sale> findAll() {
+        return saleRepo.findAll();
+    }
+
+    public List<Sale> findByFilters(LocalDate from, LocalDate to, String customerName) {
+        return saleRepo.findByFilters(from, to, customerName);
     }
 }

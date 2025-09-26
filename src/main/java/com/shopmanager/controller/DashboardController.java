@@ -15,6 +15,7 @@ public class DashboardController {
     @FXML private Button customersBtn;
     @FXML private Button salesBtn;
     @FXML private Button usersBtn;
+    @FXML private Button salesHistoryBtn;
     @FXML private Button toggleThemeBtn;
 
     @FXML
@@ -29,6 +30,7 @@ public class DashboardController {
         customersBtn.setOnAction(e -> SceneManager.navigate("view/customers.fxml"));
         salesBtn.setOnAction(e -> SceneManager.navigate("view/sales.fxml"));
         usersBtn.setOnAction(e -> new Alert(Alert.AlertType.INFORMATION, "Module Utilisateurs à venir").showAndWait());
+        if (salesHistoryBtn != null) salesHistoryBtn.setOnAction(e -> SceneManager.navigate("view/sales_history.fxml"));
 
         // Role-based UI: hide Users for CASHIER
         User u = SceneManager.getCurrentUser();

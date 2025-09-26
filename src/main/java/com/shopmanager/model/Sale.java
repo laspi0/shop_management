@@ -19,7 +19,7 @@ public class Sale {
     @Column(nullable = false)
     private LocalDateTime dateTime = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<SaleItem> items = new ArrayList<>();
 
     @Column(nullable = false)

@@ -50,19 +50,20 @@
                 </GridPane>
 
                 <!-- Navigation -->
-                <VBox spacing="16">
-                    <children>
-                        <Label text="Actions rapides" styleClass="subtitle" />
-                        <HBox spacing="16" alignment="CENTER_LEFT">
-                            <children>
-                                <Button fx:id="productsBtn" text="📦 Produits" styleClass="nav" />
-                                <Button fx:id="customersBtn" text="👥 Clients" styleClass="nav" />
-                                <Button fx:id="salesBtn" text="💰 Ventes" styleClass="nav" />
-                                <Button fx:id="usersBtn" text="⚙️ Utilisateurs" styleClass="nav" />
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
+            <VBox spacing="16">
+    <children>
+        <Label text="Actions rapides" styleClass="subtitle" />
+        <FlowPane hgap="16" vgap="12" alignment="CENTER_LEFT">
+            <children>
+                <Button fx:id="productsBtn" text="📦 Produits" styleClass="nav" />
+                <Button fx:id="customersBtn" text="👥 Clients" styleClass="nav" />
+                <Button fx:id="salesBtn" text="💰 Ventes" styleClass="nav" />
+                <Button fx:id="usersBtn" text="⚙️ Utilisateurs" styleClass="nav" />
+                <Button fx:id="salesHistoryBtn" text="📄 Historique" styleClass="nav" />
+            </children>
+        </FlowPane>
+    </children>
+</VBox>
             </children>
         </VBox>
     </center>
