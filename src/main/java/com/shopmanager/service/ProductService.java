@@ -46,4 +46,8 @@ public class ProductService {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
+
+    public Product findByBarcode(String barcode) {
+        return repo.findByBarcode(barcode);
+    }
 }

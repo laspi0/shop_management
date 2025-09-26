@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -42,6 +43,11 @@
             <VBox spacing="16" GridPane.columnIndex="0" styleClass="card">
                 <children>
                     <Label text="Catalogue Produits" styleClass="subtitle"/>
+                    <!-- Barcode Scan Field -->
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <Label text="Scanner un produit:" styleClass="form-label"/>
+                        <TextField fx:id="barcodeScanField" promptText="Scannez le code-barres ici" HBox.hgrow="ALWAYS"/>
+                    </HBox>
                     <TableView fx:id="productsTable" VBox.vgrow="ALWAYS">
                         <columns>
                             <TableColumn fx:id="pName" text="Nom" prefWidth="250"/>

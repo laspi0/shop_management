@@ -401,6 +401,20 @@
     -fx-text-fill: white;
 }
 
+/* Style des messages d'erreur */
+.error {
+    -fx-text-fill: #ef4444; /* Couleur rouge fixe au lieu de la variable */
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+    -fx-wrap-text: true;
+    -fx-max-width: 300px;
+    -fx-alignment: center;
+    -fx-background-color: #fee2e2; /* Fond rouge clair */
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 12px;
+    -fx-text-alignment: center;
+}
+
 /* Style du texte dans les cellules sélectionnées */
 .table-row-cell:selected .text,
 .table-row-cell:selected:hover .text,

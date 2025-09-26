@@ -11,7 +11,9 @@ import com.shopmanager.service.SaleService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.application.Platform; // Added for Platform.runLater
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode; // Added for KeyCode
 import javafx.stage.FileChooser;
 import com.shopmanager.core.SceneManager;
 
@@ -29,6 +31,7 @@ public class SalesController {
     @FXML private TableColumn<Product, String> pPrice;
     @FXML private TableColumn<Product, Number> pQty;
     @FXML private Spinner<Integer> qtySpinner;
+    @FXML private TextField barcodeScanField; // New FXML element for barcode input
     @FXML private Button addToCartBtn;
 
     @FXML private TableView<SaleItem> cartTable;
@@ -73,6 +76,58 @@ public class SalesController {
         customerService.findAll().forEach(c -> customerCombo.getItems().add(c.getName()));
         customerCombo.setValue("Client comptoir");
 
+        // Barcode scanner integration
+        if (barcodeScanField != null) {
+            barcodeScanField.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    String barcode = barcodeScanField.getText().trim();
+                    if (!barcode.isEmpty()) {
+                        handleBarcodeScan(barcode);
+                    }
+                    barcodeScanField.clear(); // Clear the field after processing
+                    // Focus will be requested again below
+                }
+            });
+            // Request focus for the barcode field after the scene is shown
+            Platform.runLater(() -> barcodeScanField.requestFocus());
+        }
+
+        updateTotals();
+    }
+
+    private void handleBarcodeScan(String barcode) {
+        Product p = productService.findByBarcode(barcode);
+        if (p == null) {
+            new Alert(Alert.AlertType.WARNING, "Produit avec code-barres " + barcode + " non trouvé.").showAndWait();
+            return;
+        }
+
+        // Check if product is already in cart to increment quantity
+        boolean foundInCart = false;
+        for (SaleItem item : cart) {
+            if (item.getProduct().getId().equals(p.getId())) {
+                if (item.getQuantity() + 1 > p.getQuantity()) {
+                    new Alert(Alert.AlertType.WARNING, "Quantité demandée supérieure au stock disponible pour " + p.getName()).showAndWait();
+                    return;
+                }
+                item.setQuantity(item.getQuantity() + 1);
+                foundInCart = true;
+                break;
+            }
+        }
+
+        if (!foundInCart) {
+            if (1 > p.getQuantity()) {
+                new Alert(Alert.AlertType.WARNING, "Quantité demandée supérieure au stock disponible pour " + p.getName()).showAndWait();
+                return;
+            }
+            SaleItem newItem = new SaleItem();
+            newItem.setProduct(p);
+            newItem.setQuantity(1);
+            newItem.setUnitPrice(p.getPrice()); // Assuming unit price is product's price
+            sale.getItems().add(newItem); // Add to sale's internal list
+        }
+        cart.setAll(sale.getItems()); // Refresh observable list from sale's internal list
         updateTotals();
     }
 

@@ -20,4 +20,10 @@ public class ProductRepository extends BaseRepository<Product> {
     public long countOutOfStock() {
         return get(s -> s.createQuery("select count(p) from Product p where p.quantity = 0", Long.class).getSingleResult());
     }
+
+    public Product findByBarcode(String barcode) {
+        return get(s -> s.createQuery("from Product p where p.barcode = :barcode", Product.class)
+                .setParameter("barcode", barcode)
+                .uniqueResult()); // uniqueResult() is used because barcode is unique
+    }
 }

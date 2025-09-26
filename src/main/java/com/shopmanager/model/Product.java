@@ -24,6 +24,9 @@ public class Product {
     @Column
     private String imagePath;
 
+    @Column(unique = true) // Barcode should be unique
+    private String barcode; // New field for barcode
+
     public Product() {}
 
     public Long getId() { return id; }
@@ -38,4 +41,13 @@ public class Product {
     public void setQuantity(int quantity) { this.quantity = quantity; }
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+
+    // New getter and setter for barcode
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
 }

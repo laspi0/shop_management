@@ -38,7 +38,7 @@
             </VBox>
 
             <!-- Error Label -->
-            <Label fx:id="errorLabel" styleClass="error" managed="false"/>
+            <Label fx:id="errorLabel" styleClass="error" visible="true" managed="true" maxWidth="300" text=" " />
 
             <!-- Login Button -->
             <Button fx:id="loginButton" text="Se connecter" onAction="#onLogin" styleClass="button,primary" maxWidth="Infinity"/>
