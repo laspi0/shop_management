@@ -204,7 +204,7 @@
                                                     </children>
                                                 </HBox>
                                                 
-                                                <VBox spacing="12">
+                                                <VBox fx:id="recentSalesVBox" spacing="12">
                                                     <children>
                                                         <HBox alignment="CENTER_LEFT" spacing="10">
                                                             <children>
@@ -261,7 +261,7 @@
                                                     </children>
                                                 </HBox>
                                                 
-                                                <VBox spacing="12">
+                                                <VBox fx:id="stockAlertsVBox" spacing="12">
                                                     <children>
                                                         <HBox alignment="CENTER_LEFT" spacing="10">
                                                             <children>
@@ -335,7 +335,7 @@
                                                 </VBox>
                                                 
                                                 <!-- Graphique simulé avec des barres -->
-                                                <HBox spacing="8" alignment="BOTTOM_CENTER">
+                                                <HBox fx:id="performanceChartHBox" spacing="8" alignment="BOTTOM_CENTER">
                                                     <children>
                                                         <VBox spacing="4" alignment="BOTTOM_CENTER">
                                                             <children>
@@ -394,7 +394,7 @@
                                                     </children>
                                                 </VBox>
                                                 
-                                                <VBox spacing="16">
+                                                <VBox fx:id="topProductsVBox" spacing="16">
                                                     <children>
                                                         <HBox alignment="CENTER_LEFT" spacing="12">
                                                             <children>

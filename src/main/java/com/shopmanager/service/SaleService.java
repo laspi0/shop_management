@@ -7,9 +7,14 @@ import com.shopmanager.model.SaleItem;
 import com.shopmanager.repository.ProductRepository;
 import com.shopmanager.repository.SaleRepository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SaleService {
     private final SaleRepository saleRepo = new SaleRepository();
@@ -65,5 +70,31 @@ public class SaleService {
 
     public double getRevenueToday() {
         return saleRepo.sumRevenueToday();
+    }
+
+    public List<Sale> findRecentSales(int limit) {
+        return saleRepo.findAll().stream()
+                .sorted(Comparator.comparing(Sale::getDateTime).reversed())
+                .limit(limit)
+                .collect(Collectors.toList());
+    }
+
+    public Map<LocalDate, Double> getSalesPerDayForLastWeek() {
+        LocalDate today = LocalDate.now();
+        Map<LocalDate, Double> salesPerDay = new LinkedHashMap<>();
+
+        // Initialize map with last 7 days and 0 sales
+        for (int i = 6; i >= 0; i--) {
+            salesPerDay.put(today.minusDays(i), 0.0);
+        }
+
+        saleRepo.findAll().stream()
+                .filter(sale -> !sale.getDateTime().toLocalDate().isBefore(today.minusDays(6)))
+                .forEach(sale -> {
+                    LocalDate saleDate = sale.getDateTime().toLocalDate();
+                    salesPerDay.computeIfPresent(saleDate, (date, currentTotal) -> currentTotal + sale.getTotal());
+                });
+
+        return salesPerDay;
     }
 }
