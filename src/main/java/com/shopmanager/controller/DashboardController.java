@@ -13,6 +13,7 @@ public class DashboardController {
     @FXML private Label salesTodayValue;
     @FXML private Label revenueValue;
     @FXML private Label outOfStockValue;
+    @FXML private Label outOfStockLabel; // Ajout du label pour le statut
     @FXML private Button productsBtn;
     @FXML private Button customersBtn;
     @FXML private Button salesBtn;
@@ -53,5 +54,16 @@ public class DashboardController {
         if (salesTodayValue != null) salesTodayValue.setText(String.valueOf(salesToday));
         if (revenueValue != null) revenueValue.setText(String.format("%.2f€", revenueToday));
         if (outOfStockValue != null) outOfStockValue.setText(String.valueOf(outOfStock));
+
+        // Mise à jour du label de statut des stocks
+        if (outOfStockLabel != null) {
+            if (outOfStock > 0) {
+                outOfStockLabel.setText("Action requise");
+                outOfStockLabel.getStyleClass().setAll("stats-change", "negative");
+            } else {
+                outOfStockLabel.setText("Aucune action requise");
+                outOfStockLabel.getStyleClass().setAll("stats-change", "positive");
+            }
+        }
     }
 }

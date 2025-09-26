@@ -41,9 +41,9 @@
                         </VBox>
                         <VBox GridPane.columnIndex="2" styleClass="stats-card" spacing="8">
                             <children>
-                                <Label fx:id="outOfStockValue" text="3" styleClass="stats-value" />
+                                <Label fx:id="outOfStockValue" text="0" styleClass="stats-value" />
                                 <Label text="Produits en rupture" styleClass="stats-label" />
-                                <Label text="Action requise" styleClass="stats-change,negative" />
+                                <Label fx:id="outOfStockLabel" text="" styleClass="stats-change" />
                             </children>
                         </VBox>
                     </children>
