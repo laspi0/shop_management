@@ -208,6 +208,7 @@
 }
 
 .appbar {
+    background-color: -surface-elevated;
     -fx-background-color: -surface-elevated;
     -fx-border-color: transparent;
     -fx-border-width: 0 0 1px 0;
@@ -374,6 +375,7 @@
     -fx-padding: 16px 20px;
 }
 
+/* Style de base des cellules */
 .table-row-cell {
     -fx-background-color: -surface;
     -fx-border-color: rgba(226,232,240,0.5);
@@ -382,13 +384,30 @@
     -fx-padding: 12px 0;
 }
 
-.table-row-cell:selected {
-    -fx-background-color: -primary-light;
-    -fx-text-fill: -primary-solid;
-}
-
+/* Style au survol (uniquement si non sélectionné) */
 .table-row-cell:hover {
     -fx-background-color: -surface-hover;
+}
+
+/* Style quand sélectionné (sans survol) */
+.table-row-cell:selected {
+    -fx-background-color: -primary-solid;
+    -fx-text-fill: white;
+}
+
+/* Style quand sélectionné ET survolé */
+.table-row-cell:selected:hover {
+    -fx-background-color: -primary-solid;
+    -fx-text-fill: white;
+}
+
+/* Style du texte dans les cellules sélectionnées */
+.table-row-cell:selected .text,
+.table-row-cell:selected:hover .text,
+.table-row-cell:selected .table-cell,
+.table-row-cell:selected:hover .table-cell {
+    -fx-fill: white;
+    -fx-text-fill: white;
 }
 
 /* Utilities */
