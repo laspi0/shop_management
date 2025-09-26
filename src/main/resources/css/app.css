@@ -104,7 +104,7 @@
 }
 
 .button.primary {
-    -fx-background-color: -primary;
+    -fx-background-color: -primary-solid; /* Utilisation de la couleur solide */
     -fx-text-fill: white;
     -fx-font-weight: 700;
     -fx-effect: -shadow-colored;
