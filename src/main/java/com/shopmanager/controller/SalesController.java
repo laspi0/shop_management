@@ -16,6 +16,10 @@ import javafx.stage.FileChooser;
 import com.shopmanager.core.SceneManager;
 
 import java.io.File;
+import java.text.Normalizer;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class SalesController {
     @FXML private Button backBtn;
@@ -108,7 +112,8 @@ public class SalesController {
             FileChooser chooser = new FileChooser();
             chooser.setTitle("Enregistrer la facture PDF");
             chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
-            chooser.setInitialFileName("facture.pdf");
+            String suggested = buildInvoiceFileName(sale);
+            chooser.setInitialFileName(suggested);
             File target = chooser.showSaveDialog(finalizeBtn.getScene().getWindow());
             if (target != null) {
                 reportService.generateInvoice(sale, target);
@@ -121,5 +126,31 @@ public class SalesController {
         sale = new Sale();
         cart.clear();
         updateTotals();
+    }
+
+    private String buildInvoiceFileName(Sale sale) {
+        // Date/heure Paris
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Europe/Paris"));
+        String ts = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HHmm"));
+        // ID de vente (zero-pad 6)
+        long id = sale.getId() == null ? 0L : sale.getId();
+        String idStr = String.format("%06d", id);
+        // Client slug
+        String clientName = sale.getCustomer() != null && sale.getCustomer().getName() != null
+                ? sale.getCustomer().getName() : "Client comptoir";
+        String slug = slugify(clientName);
+        return String.format("Facture_%s_%s_%s.pdf", ts, idStr, slug);
+    }
+
+    private String slugify(String input) {
+        String n = Normalizer.normalize(input, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        n = n.toLowerCase()
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("-+", "-")
+                .replaceAll("^-|-$", "");
+        if (n.isBlank()) n = "facture";
+        if (n.length() > 50) n = n.substring(0, 50);
+        return n;
     }
 }
