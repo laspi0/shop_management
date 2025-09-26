@@ -99,8 +99,6 @@
 .button:hover {
     -fx-background-color: -surface-hover;
     -fx-effect: -shadow-lg;
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
 }
 
 .button.primary {
@@ -142,8 +140,6 @@
 
 .card:hover {
     -fx-effect: -shadow-xl;
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
 }
 
 .card.glass {
@@ -188,8 +184,6 @@
 
 .stats-card:hover {
     -fx-effect: -shadow-xl;
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
 }
 
 .stats-card.primary {
@@ -263,8 +257,6 @@
     -fx-background-color: -primary-light;
     -fx-text-fill: -primary-solid;
     -fx-effect: -shadow-lg;
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
 }
 
 .button.nav.active {
@@ -349,8 +341,6 @@
 }
 
 .scale-on-hover:hover {
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
 }
 
 .glow:hover {
