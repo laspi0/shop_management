@@ -104,7 +104,7 @@ public class SalesController {
 
         // Check if product is already in cart to increment quantity
         boolean foundInCart = false;
-        for (SaleItem item : cart) {
+        for (SaleItem item : sale.getItems()) { // Iterate over sale.getItems() directly
             if (item.getProduct().getId().equals(p.getId())) {
                 if (item.getQuantity() + 1 > p.getQuantity()) {
                     new Alert(Alert.AlertType.WARNING, "Quantité demandée supérieure au stock disponible pour " + p.getName()).showAndWait();
@@ -117,16 +117,13 @@ public class SalesController {
         }
 
         if (!foundInCart) {
-            if (1 > p.getQuantity()) {
-                new Alert(Alert.AlertType.WARNING, "Quantité demandée supérieure au stock disponible pour " + p.getName()).showAndWait();
-                return;
-            }
-            SaleItem newItem = new SaleItem();
-            newItem.setProduct(p);
-            newItem.setQuantity(1);
-            newItem.setUnitPrice(p.getPrice()); // Assuming unit price is product's price
-            sale.getItems().add(newItem); // Add to sale's internal list
+            // Use saleService.addItem for new products to ensure totals are recalculated
+            saleService.addItem(sale, p, 1); // Add 1 quantity
+        } else {
+            // If quantity was incremented, recalculate totals manually
+            saleService.recalcTotals(sale);
         }
+
         cart.setAll(sale.getItems()); // Refresh observable list from sale's internal list
         updateTotals();
     }
