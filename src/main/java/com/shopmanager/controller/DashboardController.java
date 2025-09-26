@@ -1,11 +1,13 @@
 package com.shopmanager.controller;
 
 import com.shopmanager.core.SceneManager;
+import com.shopmanager.model.User;
+import com.shopmanager.service.ProductService;
+import com.shopmanager.service.SaleService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert;
-import com.shopmanager.model.User;
 
 public class DashboardController {
     @FXML private Label salesTodayValue;
@@ -18,12 +20,12 @@ public class DashboardController {
     @FXML private Button salesHistoryBtn;
     @FXML private Button toggleThemeBtn;
 
+    private final SaleService saleService = new SaleService();
+    private final ProductService productService = new ProductService();
+
     @FXML
     public void initialize() {
-        // Initial demo values (could be wired to services later)
-        if (salesTodayValue != null) salesTodayValue.setText("0");
-        if (revenueValue != null) revenueValue.setText("0.00€");
-        if (outOfStockValue != null) outOfStockValue.setText("0");
+        loadStats();
         toggleThemeBtn.setOnAction(e -> SceneManager.toggleTheme());
 
         productsBtn.setOnAction(e -> SceneManager.navigate("view/products.fxml"));
@@ -41,5 +43,15 @@ public class DashboardController {
                 usersBtn.setManaged(false);
             }
         }
+    }
+
+    private void loadStats() {
+        long salesToday = saleService.getSalesToday();
+        double revenueToday = saleService.getRevenueToday();
+        long outOfStock = productService.countOutOfStock();
+
+        if (salesTodayValue != null) salesTodayValue.setText(String.valueOf(salesToday));
+        if (revenueValue != null) revenueValue.setText(String.format("%.2f€", revenueToday));
+        if (outOfStockValue != null) outOfStockValue.setText(String.valueOf(outOfStock));
     }
 }

@@ -58,4 +58,12 @@ public class SaleService {
     public List<Sale> findByFilters(LocalDate from, LocalDate to, String customerName) {
         return saleRepo.findByFilters(from, to, customerName);
     }
+
+    public long getSalesToday() {
+        return saleRepo.countSalesToday();
+    }
+
+    public double getRevenueToday() {
+        return saleRepo.sumRevenueToday();
+    }
 }

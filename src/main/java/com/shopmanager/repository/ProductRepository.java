@@ -16,4 +16,8 @@ public class ProductRepository extends BaseRepository<Product> {
                 .setParameter("q", "%" + q.toLowerCase() + "%")
                 .list());
     }
+
+    public long countOutOfStock() {
+        return get(s -> s.createQuery("select count(p) from Product p where p.quantity = 0", Long.class).getSingleResult());
+    }
 }

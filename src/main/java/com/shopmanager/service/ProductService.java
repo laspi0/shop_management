@@ -13,4 +13,8 @@ public class ProductService {
     public void save(Product p) { repo.save(p); }
     public void update(Product p) { repo.update(p); }
     public void delete(Product p) { repo.delete(p); }
+
+    public long countOutOfStock() {
+        return repo.countOutOfStock();
+    }
 }

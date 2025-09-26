@@ -26,4 +26,19 @@ public class SaleRepository extends BaseRepository<Sale> {
         if (customerName != null && !customerName.isBlank()) q.setParameter("cust", "%" + customerName.toLowerCase() + "%");
         return q;
     }
+
+    public long countSalesToday() {
+        return get(s -> s.createQuery("select count(s) from Sale s where s.dateTime >= :today", Long.class)
+                .setParameter("today", java.time.LocalDate.now().atStartOfDay())
+                .getSingleResult());
+    }
+
+    public double sumRevenueToday() {
+        return get(s -> {
+            Double result = s.createQuery("select sum(s.total) from Sale s where s.dateTime >= :today", Double.class)
+                    .setParameter("today", java.time.LocalDate.now().atStartOfDay())
+                    .getSingleResult();
+            return result != null ? result : 0.0;
+        });
+    }
 }
