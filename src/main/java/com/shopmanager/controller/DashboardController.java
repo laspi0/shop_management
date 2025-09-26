@@ -8,9 +8,9 @@ import javafx.scene.control.Alert;
 import com.shopmanager.model.User;
 
 public class DashboardController {
-    @FXML private Label salesTodayLabel;
-    @FXML private Label revenueLabel;
-    @FXML private Label outOfStockLabel;
+    @FXML private Label salesTodayValue;
+    @FXML private Label revenueValue;
+    @FXML private Label outOfStockValue;
     @FXML private Button productsBtn;
     @FXML private Button customersBtn;
     @FXML private Button salesBtn;
@@ -19,9 +19,10 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-        salesTodayLabel.setText("Ventes du jour: 0");
-        revenueLabel.setText("Chiffre d'affaires: 0.00 €");
-        outOfStockLabel.setText("Produits en rupture: 0");
+        // Initial demo values (could be wired to services later)
+        if (salesTodayValue != null) salesTodayValue.setText("0");
+        if (revenueValue != null) revenueValue.setText("0.00€");
+        if (outOfStockValue != null) outOfStockValue.setText("0");
         toggleThemeBtn.setOnAction(e -> SceneManager.toggleTheme());
 
         productsBtn.setOnAction(e -> SceneManager.navigate("view/products.fxml"));

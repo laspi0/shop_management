@@ -10,55 +10,60 @@
             <children>
                 <Label text="Dashboard" styleClass="title" />
                 <Pane HBox.hgrow="ALWAYS" />
-                <Button fx:id="toggleThemeBtn" text="Light/Dark" />
+                <Button fx:id="toggleThemeBtn" text="Thème" styleClass="ghost" />
             </children>
-            <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
         </HBox>
     </top>
     <center>
-        <GridPane hgap="16" vgap="16">
-            <padding>
-                <Insets top="16" right="16" bottom="16" left="16"/>
-            </padding>
-            <columnConstraints>
-                <ColumnConstraints percentWidth="33" />
-                <ColumnConstraints percentWidth="33" />
-                <ColumnConstraints percentWidth="34" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints percentHeight="40" />
-                <RowConstraints percentHeight="60" />
-            </rowConstraints>
-
+        <VBox spacing="24" styleClass="p-large">
             <children>
-                <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="card">
+                <!-- Stats Cards -->
+                <GridPane hgap="20" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="33.33" />
+                        <ColumnConstraints percentWidth="33.33" />
+                        <ColumnConstraints percentWidth="33.34" />
+                    </columnConstraints>
                     <children>
-                        <Label fx:id="salesTodayLabel" text="Ventes du jour" />
+                        <VBox GridPane.columnIndex="0" styleClass="stats-card" spacing="8">
+                            <children>
+                                <Label fx:id="salesTodayValue" text="24" styleClass="stats-value" />
+                                <Label text="Ventes du jour" styleClass="stats-label" />
+                                <Label text="+12% vs hier" styleClass="stats-change,positive" />
+                            </children>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1" styleClass="stats-card" spacing="8">
+                            <children>
+                                <Label fx:id="revenueValue" text="2,450€" styleClass="stats-value" />
+                                <Label text="Chiffre d'affaires" styleClass="stats-label" />
+                                <Label text="+8% vs hier" styleClass="stats-change,positive" />
+                            </children>
+                        </VBox>
+                        <VBox GridPane.columnIndex="2" styleClass="stats-card" spacing="8">
+                            <children>
+                                <Label fx:id="outOfStockValue" text="3" styleClass="stats-value" />
+                                <Label text="Produits en rupture" styleClass="stats-label" />
+                                <Label text="Action requise" styleClass="stats-change,negative" />
+                            </children>
+                        </VBox>
                     </children>
-                    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
-                </VBox>
-                <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="card">
-                    <children>
-                        <Label fx:id="revenueLabel" text="Chiffre d'affaires" />
-                    </children>
-                    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
-                </VBox>
-                <VBox GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="card">
-                    <children>
-                        <Label fx:id="outOfStockLabel" text="Produits en rupture" />
-                    </children>
-                    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
-                </VBox>
+                </GridPane>
 
-                <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="3" spacing="12">
+                <!-- Navigation -->
+                <VBox spacing="16">
                     <children>
-                        <Button fx:id="productsBtn" text="Produits" styleClass="nav" />
-                        <Button fx:id="customersBtn" text="Clients" styleClass="nav" />
-                        <Button fx:id="salesBtn" text="Ventes" styleClass="nav" />
-                        <Button fx:id="usersBtn" text="Utilisateurs" styleClass="nav" />
+                        <Label text="Actions rapides" styleClass="subtitle" />
+                        <HBox spacing="16" alignment="CENTER_LEFT">
+                            <children>
+                                <Button fx:id="productsBtn" text="📦 Produits" styleClass="nav" />
+                                <Button fx:id="customersBtn" text="👥 Clients" styleClass="nav" />
+                                <Button fx:id="salesBtn" text="💰 Ventes" styleClass="nav" />
+                                <Button fx:id="usersBtn" text="⚙️ Utilisateurs" styleClass="nav" />
+                            </children>
+                        </HBox>
                     </children>
-                </HBox>
+                </VBox>
             </children>
-        </GridPane>
+        </VBox>
     </center>
 </BorderPane>
