@@ -40,6 +40,7 @@ public class SalesController {
     @FXML private TableColumn<SaleItem, String> cPrice;
     @FXML private Label vatLabel;
     @FXML private Label totalLabel;
+    @FXML private Button removeCartItemBtn; // New FXML element for removing cart item
     @FXML private Button finalizeBtn;
 
     private final ProductService productService = new ProductService();
@@ -69,6 +70,7 @@ public class SalesController {
 
         qtySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1));
         addToCartBtn.setOnAction(e -> addSelectedProduct());
+        removeCartItemBtn.setOnAction(e -> removeSelectedCartItem()); // Add listener for remove button
         finalizeBtn.setOnAction(e -> finalizeSale());
 
         customerCombo.getItems().clear();
@@ -124,6 +126,17 @@ public class SalesController {
             saleService.recalcTotals(sale);
         }
 
+        cart.setAll(sale.getItems()); // Refresh observable list from sale's internal list
+        updateTotals();
+    }
+
+    private void removeSelectedCartItem() {
+        SaleItem selectedItem = cartTable.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner un article à supprimer du panier.").showAndWait();
+            return;
+        }
+        saleService.removeItem(sale, selectedItem);
         cart.setAll(sale.getItems()); // Refresh observable list from sale's internal list
         updateTotals();
     }

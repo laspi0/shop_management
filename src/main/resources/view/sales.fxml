@@ -91,6 +91,7 @@
                                     <Label fx:id="totalLabel" text="0.00 MRU" styleClass="title"/>
                                 </children>
                             </HBox>
+                            <Button fx:id="removeCartItemBtn" text="🗑️ Supprimer l'article sélectionné" styleClass="button,danger" maxWidth="Infinity"/>
                             <Button fx:id="finalizeBtn" text="✅ Finaliser la Vente" styleClass="button,success" maxWidth="Infinity"/>
                         </children>
                     </VBox>
