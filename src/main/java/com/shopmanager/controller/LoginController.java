@@ -43,6 +43,8 @@ public class LoginController {
             }
             if (user != null) {
                 errorLabel.setText("");
+                // set session user for role-based UI
+                SceneManager.setCurrentUser(user);
                 SceneManager.navigate("view/dashboard.fxml");
             } else {
                 errorLabel.setText("Email ou mot de passe invalide");

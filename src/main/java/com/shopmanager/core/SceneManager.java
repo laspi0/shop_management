@@ -7,12 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.io.IOException;
 import java.net.URL;
+import com.shopmanager.model.User;
 
 public class SceneManager {
     private static Stage primaryStage;
+    private static User currentUser;
 
     public static void init(Stage stage) {
         primaryStage = stage;
@@ -81,5 +81,14 @@ public class SceneManager {
         if (primaryStage != null && primaryStage.getScene() != null) {
             applyTheme(primaryStage.getScene());
         }
+    }
+
+    // Session utilisateur courante
+    public static void setCurrentUser(User user) {
+        currentUser = user;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
     }
 }

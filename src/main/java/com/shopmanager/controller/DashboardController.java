@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
+import com.shopmanager.model.User;
 
 public class DashboardController {
     @FXML private Label salesTodayLabel;
@@ -27,5 +28,15 @@ public class DashboardController {
         customersBtn.setOnAction(e -> SceneManager.navigate("view/customers.fxml"));
         salesBtn.setOnAction(e -> SceneManager.navigate("view/sales.fxml"));
         usersBtn.setOnAction(e -> new Alert(Alert.AlertType.INFORMATION, "Module Utilisateurs à venir").showAndWait());
+
+        // Role-based UI: hide Users for CASHIER
+        User u = SceneManager.getCurrentUser();
+        if (u != null && u.getRole() != null) {
+            String role = u.getRole().getName();
+            if ("CASHIER".equalsIgnoreCase(role)) {
+                usersBtn.setVisible(false);
+                usersBtn.setManaged(false);
+            }
+        }
     }
 }

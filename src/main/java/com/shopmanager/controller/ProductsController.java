@@ -53,6 +53,14 @@ public class ProductsController {
         addBtn.setOnAction(e -> onAdd());
         editBtn.setOnAction(e -> onEdit());
         deleteBtn.setOnAction(e -> onDelete());
+
+        // Role-based: restrict actions for CASHIER
+        var u = SceneManager.getCurrentUser();
+        if (u != null && u.getRole() != null && "CASHIER".equalsIgnoreCase(u.getRole().getName())) {
+            addBtn.setDisable(true);
+            editBtn.setDisable(true);
+            deleteBtn.setDisable(true);
+        }
     }
 
     private void loadCategories() {
