@@ -38,14 +38,14 @@ public class ReportService {
             for (SaleItem it : sale.getItems()) {
                 table.addCell(cell(text(it.getProduct().getName())));
                 table.addCell(cell(text(String.valueOf(it.getQuantity()))));
-                table.addCell(cell(text(String.format("%.2f", it.getUnitPrice()))));
-                table.addCell(cell(text(String.format("%.2f", it.getUnitPrice() * it.getQuantity()))));
+                table.addCell(cell(text(String.format("%.2f MRU", it.getUnitPrice()))));
+                table.addCell(cell(text(String.format("%.2f MRU", it.getUnitPrice() * it.getQuantity()))));
             }
 
             doc.add(table);
             doc.add(new Paragraph(" "));
-            doc.add(new Paragraph("TVA: " + String.format("%.2f", sale.getVat())));
-            doc.add(new Paragraph("Total TTC: " + String.format("%.2f", sale.getTotal()))
+            doc.add(new Paragraph("TVA: " + String.format("%.2f MRU", sale.getVat())));
+            doc.add(new Paragraph("Total TTC: " + String.format("%.2f MRU", sale.getTotal()))
                     .setBold().setFontColor(ColorConstants.BLACK));
         }
         return targetFile;

@@ -25,8 +25,8 @@ public class SalesHistoryController {
     @FXML private TableColumn<Sale, String> colDate;
     @FXML private TableColumn<Sale, String> colCustomer;
     @FXML private TableColumn<Sale, Number> colItems;
-    @FXML private TableColumn<Sale, Number> colVat;
-    @FXML private TableColumn<Sale, Number> colTotal;
+    @FXML private TableColumn<Sale, String> colVat;
+    @FXML private TableColumn<Sale, String> colTotal;
 
     private final SaleService saleService = new SaleService();
     private final CustomerService customerService = new CustomerService();
@@ -47,8 +47,8 @@ public class SalesHistoryController {
         colItems.setCellValueFactory(c -> new javafx.beans.property.SimpleIntegerProperty(
                 c.getValue().getItems() != null ? c.getValue().getItems().size() : 0
         ));
-        colVat.setCellValueFactory(c -> new javafx.beans.property.SimpleDoubleProperty(c.getValue().getVat()));
-        colTotal.setCellValueFactory(c -> new javafx.beans.property.SimpleDoubleProperty(c.getValue().getTotal()));
+        colVat.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(String.format("%.2f MRU", c.getValue().getVat())));
+        colTotal.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(String.format("%.2f MRU", c.getValue().getTotal())));
 
         table.setItems(sales);
 

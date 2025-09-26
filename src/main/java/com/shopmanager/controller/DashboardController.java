@@ -52,7 +52,7 @@ public class DashboardController {
         long outOfStock = productService.countOutOfStock();
 
         if (salesTodayValue != null) salesTodayValue.setText(String.valueOf(salesToday));
-        if (revenueValue != null) revenueValue.setText(String.format("%.2f€", revenueToday));
+        if (revenueValue != null) revenueValue.setText(String.format("%.2f MRU", revenueToday));
         if (outOfStockValue != null) outOfStockValue.setText(String.valueOf(outOfStock));
 
         // Mise à jour du label de statut des stocks

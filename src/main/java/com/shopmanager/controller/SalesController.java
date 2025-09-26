@@ -26,7 +26,7 @@ public class SalesController {
     @FXML private ComboBox<String> customerCombo;
     @FXML private TableView<Product> productsTable;
     @FXML private TableColumn<Product, String> pName;
-    @FXML private TableColumn<Product, Number> pPrice;
+    @FXML private TableColumn<Product, String> pPrice;
     @FXML private TableColumn<Product, Number> pQty;
     @FXML private Spinner<Integer> qtySpinner;
     @FXML private Button addToCartBtn;
@@ -34,7 +34,7 @@ public class SalesController {
     @FXML private TableView<SaleItem> cartTable;
     @FXML private TableColumn<SaleItem, String> cName;
     @FXML private TableColumn<SaleItem, Number> cQty;
-    @FXML private TableColumn<SaleItem, Number> cPrice;
+    @FXML private TableColumn<SaleItem, String> cPrice;
     @FXML private Label vatLabel;
     @FXML private Label totalLabel;
     @FXML private Button finalizeBtn;
@@ -54,14 +54,14 @@ public class SalesController {
         sale = new Sale();
 
         pName.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(c.getValue().getName()));
-        pPrice.setCellValueFactory(c -> new javafx.beans.property.SimpleDoubleProperty(c.getValue().getPrice()));
+        pPrice.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(String.format("%.2f MRU", c.getValue().getPrice())));
         pQty.setCellValueFactory(c -> new javafx.beans.property.SimpleIntegerProperty(c.getValue().getQuantity()));
         productsTable.setItems(products);
         products.setAll(productService.findAll());
 
         cName.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(c.getValue().getProduct().getName()));
         cQty.setCellValueFactory(c -> new javafx.beans.property.SimpleIntegerProperty(c.getValue().getQuantity()));
-        cPrice.setCellValueFactory(c -> new javafx.beans.property.SimpleDoubleProperty(c.getValue().getUnitPrice()*c.getValue().getQuantity()));
+        cPrice.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(String.format("%.2f MRU", c.getValue().getUnitPrice()*c.getValue().getQuantity())));
         cartTable.setItems(cart);
 
         qtySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1));
@@ -90,8 +90,8 @@ public class SalesController {
     }
 
     private void updateTotals() {
-        vatLabel.setText(String.format("TVA: %.2f", sale.getVat()));
-        totalLabel.setText(String.format("Total: %.2f", sale.getTotal()));
+        vatLabel.setText(String.format("TVA: %.2f MRU", sale.getVat()));
+        totalLabel.setText(String.format("Total: %.2f MRU", sale.getTotal()));
     }
 
     private void finalizeSale() {
@@ -148,7 +148,7 @@ public class SalesController {
         n = n.toLowerCase()
                 .replaceAll("[^a-z0-9]+", "-")
                 .replaceAll("-+", "-")
-                .replaceAll("^-|-$", "");
+                .replaceAll("^-|-S", "");
         if (n.isBlank()) n = "facture";
         if (n.length() > 50) n = n.substring(0, 50);
         return n;
