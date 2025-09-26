@@ -10,38 +10,52 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class DashboardController {
+    // FXML fields from the new dashboard.fxml
     @FXML private Label salesTodayValue;
     @FXML private Label revenueValue;
     @FXML private Label outOfStockValue;
-    @FXML private Label outOfStockLabel; // Ajout du label pour le statut
+    @FXML private Label outOfStockLabel;
+    
+    @FXML private Button refreshBtn;
+    @FXML private Button toggleThemeBtn;
+    @FXML private Button logoutBtn;
+
+    // Navigation buttons
     @FXML private Button productsBtn;
     @FXML private Button customersBtn;
     @FXML private Button salesBtn;
     @FXML private Button usersBtn;
     @FXML private Button salesHistoryBtn;
-    @FXML private Button toggleThemeBtn;
 
     private final SaleService saleService = new SaleService();
     private final ProductService productService = new ProductService();
 
     @FXML
     public void initialize() {
+        // Load statistics
         loadStats();
-        toggleThemeBtn.setOnAction(e -> SceneManager.toggleTheme());
 
-        productsBtn.setOnAction(e -> SceneManager.navigate("view/products.fxml"));
-        customersBtn.setOnAction(e -> SceneManager.navigate("view/customers.fxml"));
-        salesBtn.setOnAction(e -> SceneManager.navigate("view/sales.fxml"));
-        usersBtn.setOnAction(e -> new Alert(Alert.AlertType.INFORMATION, "Module Utilisateurs à venir").showAndWait());
+        // Top bar actions
+        if (refreshBtn != null) refreshBtn.setOnAction(e -> loadStats());
+        if (toggleThemeBtn != null) toggleThemeBtn.setOnAction(e -> SceneManager.toggleTheme());
+        if (logoutBtn != null) logoutBtn.setOnAction(e -> SceneManager.navigate("view/login.fxml"));
+
+        // Navigation actions
+        if (productsBtn != null) productsBtn.setOnAction(e -> SceneManager.navigate("view/products.fxml"));
+        if (customersBtn != null) customersBtn.setOnAction(e -> SceneManager.navigate("view/customers.fxml"));
+        if (salesBtn != null) salesBtn.setOnAction(e -> SceneManager.navigate("view/sales.fxml"));
         if (salesHistoryBtn != null) salesHistoryBtn.setOnAction(e -> SceneManager.navigate("view/sales_history.fxml"));
+        if (usersBtn != null) usersBtn.setOnAction(e -> new Alert(Alert.AlertType.INFORMATION, "Module Utilisateurs à venir").showAndWait());
 
-        // Role-based UI: hide Users for CASHIER
-        User u = SceneManager.getCurrentUser();
-        if (u != null && u.getRole() != null) {
-            String role = u.getRole().getName();
-            if ("CASHIER".equalsIgnoreCase(role)) {
-                usersBtn.setVisible(false);
-                usersBtn.setManaged(false);
+        // Role-based UI: hide Users button for CASHIER role
+        User currentUser = SceneManager.getCurrentUser();
+        if (currentUser != null && currentUser.getRole() != null) {
+            String roleName = currentUser.getRole().getName();
+            if ("CASHIER".equalsIgnoreCase(roleName)) {
+                if (usersBtn != null && usersBtn.getParent() != null) {
+                    usersBtn.getParent().setVisible(false);
+                    usersBtn.getParent().setManaged(false);
+                }
             }
         }
     }
@@ -55,14 +69,19 @@ public class DashboardController {
         if (revenueValue != null) revenueValue.setText(String.format("%.2f MRU", revenueToday));
         if (outOfStockValue != null) outOfStockValue.setText(String.valueOf(outOfStock));
 
-        // Mise à jour du label de statut des stocks
+        // Update the out of stock status label
         if (outOfStockLabel != null) {
             if (outOfStock > 0) {
-                outOfStockLabel.setText("Action requise");
-                outOfStockLabel.getStyleClass().setAll("stats-change", "negative");
+                outOfStockLabel.setText("⚠️ Action requise");
+                // Assuming 'warning' style is defined in CSS
+                outOfStockLabel.getStyleClass().setAll("stats-change");
+                 if(outOfStockLabel.getParent() != null) outOfStockLabel.getParent().getStyleClass().setAll("stats-card", "warning");
+
             } else {
-                outOfStockLabel.setText("Aucune action requise");
-                outOfStockLabel.getStyleClass().setAll("stats-change", "positive");
+                outOfStockLabel.setText("✅ Stock OK");
+                // Assuming 'success' style is defined in CSS
+                outOfStockLabel.getStyleClass().setAll("stats-change");
+                if(outOfStockLabel.getParent() != null) outOfStockLabel.getParent().getStyleClass().setAll("stats-card", "success");
             }
         }
     }

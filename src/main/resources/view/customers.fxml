@@ -1,37 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.shopmanager.controller.CustomersController">
     <top>
-        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="appbar">
+        <HBox spacing="20" alignment="CENTER_LEFT" styleClass="appbar">
             <children>
-                <Button fx:id="backBtn" text="← Retour" />
-                <Label text="Clients" styleClass="title" />
-                <Pane HBox.hgrow="ALWAYS" />
-                <TextField fx:id="searchField" promptText="Rechercher..." />
-                <Button fx:id="addBtn" text="Ajouter" styleClass="primary" />
-                <Button fx:id="editBtn" text="Modifier" />
-                <Button fx:id="deleteBtn" text="Supprimer" />
+                <Button fx:id="backBtn" text="←" styleClass="button,icon"/>
+                <VBox spacing="2">
+                    <children>
+                        <Label text="Clients" styleClass="title"/>
+                        <Label text="Fiche de tous les clients" styleClass="caption"/>
+                    </children>
+                </VBox>
             </children>
-            <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
         </HBox>
     </top>
     <center>
-        <VBox spacing="10">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+        <VBox spacing="20" styleClass="p-lg">
             <children>
-                <TableView fx:id="table">
-                    <columns>
-                        <TableColumn fx:id="colId" text="ID" prefWidth="60" />
-                        <TableColumn fx:id="colName" text="Nom" prefWidth="240" />
-                        <TableColumn fx:id="colPhone" text="Téléphone" prefWidth="160" />
-                    </columns>
-                </TableView>
+                <!-- Toolbar -->
+                <HBox spacing="12" alignment="CENTER_LEFT" styleClass="card,glass">
+                    <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+                    <children>
+                        <Label text="🔍" style="-fx-font-size: 16px;"/>
+                        <TextField fx:id="searchField" promptText="Rechercher par nom..." HBox.hgrow="ALWAYS" styleClass="form-input"/>
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Button fx:id="addBtn" text="➕ Ajouter" styleClass="button,primary"/>
+                        <Button fx:id="editBtn" text="✏️ Modifier" styleClass="button,accent"/>
+                        <Button fx:id="deleteBtn" text="🗑️ Supprimer" styleClass="button,danger"/>
+                    </children>
+                </HBox>
+
+                <!-- Table -->
+                <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                    <children>
+                        <TableView fx:id="table" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colId" text="ID" prefWidth="80" />
+                                <TableColumn fx:id="colName" text="Nom" prefWidth="350" />
+                                <TableColumn fx:id="colPhone" text="Téléphone" prefWidth="200" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
             </children>
         </VBox>
     </center>

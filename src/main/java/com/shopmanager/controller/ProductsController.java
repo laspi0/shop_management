@@ -22,7 +22,7 @@ public class ProductsController {
     @FXML private TableColumn<Product, Long> colId;
     @FXML private TableColumn<Product, String> colName;
     @FXML private TableColumn<Product, String> colCategory;
-    @FXML private TableColumn<Product, Number> colPrice;
+    @FXML private TableColumn<Product, String> colPrice; // Corrected type
     @FXML private TableColumn<Product, Number> colQty;
     @FXML private Button addBtn;
     @FXML private Button editBtn;
@@ -40,7 +40,8 @@ public class ProductsController {
         colName.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(c.getValue().getName()));
         colCategory.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(
                 c.getValue().getCategory() != null ? c.getValue().getCategory().getName() : ""));
-        colPrice.setCellValueFactory(c -> new javafx.beans.property.SimpleDoubleProperty(c.getValue().getPrice()));
+        // Corrected cell value factory to match the String type
+        colPrice.setCellValueFactory(c -> new javafx.beans.property.SimpleStringProperty(String.format("%.2f MRU", c.getValue().getPrice())));
         colQty.setCellValueFactory(c -> new javafx.beans.property.SimpleIntegerProperty(c.getValue().getQuantity()));
         table.setItems(products);
 

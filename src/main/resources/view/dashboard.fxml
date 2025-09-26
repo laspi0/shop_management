@@ -2,69 +2,466 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.shopmanager.controller.DashboardController">
+    
     <top>
-        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="appbar">
+        <HBox spacing="20" alignment="CENTER_LEFT" styleClass="appbar">
             <children>
-                <Label text="Dashboard" styleClass="title" />
-                <Pane HBox.hgrow="ALWAYS" />
-                <Button fx:id="toggleThemeBtn" text="Thème" styleClass="ghost" />
-            </children>
-        </HBox>
-    </top>
-    <center>
-        <VBox spacing="24" styleClass="p-large">
-            <children>
-                <!-- Stats Cards -->
-                <GridPane hgap="20" vgap="20">
-                    <columnConstraints>
-                        <ColumnConstraints percentWidth="33.33" />
-                        <ColumnConstraints percentWidth="33.33" />
-                        <ColumnConstraints percentWidth="33.34" />
-                    </columnConstraints>
+                <!-- Titre avec icône -->
+                <HBox spacing="15" alignment="CENTER_LEFT">
                     <children>
-                        <VBox GridPane.columnIndex="0" styleClass="stats-card" spacing="8">
+                        <Label text="📊" style="-fx-font-size: 32px;"/>
+                        <VBox spacing="2">
                             <children>
-                                <Label fx:id="salesTodayValue" text="24" styleClass="stats-value" />
-                                <Label text="Ventes du jour" styleClass="stats-label" />
-                                <Label text="+12% vs hier" styleClass="stats-change,positive" />
-                            </children>
-                        </VBox>
-                        <VBox GridPane.columnIndex="1" styleClass="stats-card" spacing="8">
-                            <children>
-                                <Label fx:id="revenueValue" text="2,450€" styleClass="stats-value" />
-                                <Label text="Chiffre d'affaires" styleClass="stats-label" />
-                                <Label text="+8% vs hier" styleClass="stats-change,positive" />
-                            </children>
-                        </VBox>
-                        <VBox GridPane.columnIndex="2" styleClass="stats-card" spacing="8">
-                            <children>
-                                <Label fx:id="outOfStockValue" text="0" styleClass="stats-value" />
-                                <Label text="Produits en rupture" styleClass="stats-label" />
-                                <Label fx:id="outOfStockLabel" text="" styleClass="stats-change" />
+                                <Label text="Dashboard" styleClass="title"/>
+                                <Label text="Vue d'ensemble de votre magasin" styleClass="caption"/>
                             </children>
                         </VBox>
                     </children>
-                </GridPane>
-
-                <!-- Navigation -->
-            <VBox spacing="16">
-    <children>
-        <Label text="Actions rapides" styleClass="subtitle" />
-        <FlowPane hgap="16" vgap="12" alignment="CENTER_LEFT">
-            <children>
-                <Button fx:id="productsBtn" text="📦 Produits" styleClass="nav" />
-                <Button fx:id="customersBtn" text="👥 Clients" styleClass="nav" />
-                <Button fx:id="salesBtn" text="💰 Ventes" styleClass="nav" />
-                <Button fx:id="usersBtn" text="⚙️ Utilisateurs" styleClass="nav" />
-                <Button fx:id="salesHistoryBtn" text="📄 Historique" styleClass="nav" />
+                </HBox>
+                
+                <Pane HBox.hgrow="ALWAYS"/>
+                
+                <!-- Boutons d'action -->
+                <HBox spacing="12" alignment="CENTER_RIGHT">
+                    <children>
+                        <Button fx:id="refreshBtn" text="🔄 Actualiser" styleClass="button,glass"/>
+                        <Button fx:id="toggleThemeBtn" text="🎨 Thème" styleClass="button,primary"/>
+                        <Button fx:id="logoutBtn" text="🚪 Déconnexion" styleClass="button,accent"/>
+                    </children>
+                </HBox>
             </children>
-        </FlowPane>
-    </children>
-</VBox>
-            </children>
-        </VBox>
+        </HBox>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <content>
+                <VBox spacing="40" styleClass="p-lg">
+                    <children>
+                        
+                        <!-- Stats Cards Section -->
+                        <VBox spacing="20">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+                                        <Label text="📈" style="-fx-font-size: 20px;"/>
+                                        <Label text="Statistiques en temps réel" styleClass="subtitle"/>
+                                    </children>
+                                </HBox>
+                                
+                                <GridPane hgap="24" vgap="24">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="33.33"/>
+                                        <ColumnConstraints percentWidth="33.33"/>
+                                        <ColumnConstraints percentWidth="33.34"/>
+                                    </columnConstraints>
+                                    <children>
+                                        <!-- Carte Ventes -->
+                                        <VBox GridPane.columnIndex="0" styleClass="stats-card,primary" spacing="12" alignment="CENTER_LEFT">
+                                            <children>
+                                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                                    <children>
+                                                        <Label text="💰" style="-fx-font-size: 28px;"/>
+                                                        <VBox spacing="4" alignment="CENTER_LEFT">
+                                                            <children>
+                                                                <Label fx:id="salesTodayValue" text="24" styleClass="stats-value"/>
+                                                                <Label text="Ventes du jour" styleClass="stats-label"/>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </HBox>
+                                                <Label text="📊 +12% vs hier" styleClass="stats-change" style="-fx-text-fill: rgba(255,255,255,0.8);"/>
+                                            </children>
+                                        </VBox>
+                                        
+                                        <!-- Carte Revenus -->
+                                        <VBox GridPane.columnIndex="1" styleClass="stats-card,success" spacing="12" alignment="CENTER_LEFT">
+                                            <children>
+                                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                                    <children>
+                                                        <Label text="💸" style="-fx-font-size: 28px;"/>
+                                                        <VBox spacing="4" alignment="CENTER_LEFT">
+                                                            <children>
+                                                                <Label fx:id="revenueValue" text="2,450€" styleClass="stats-value"/>
+                                                                <Label text="Chiffre d'affaires" styleClass="stats-label"/>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </HBox>
+                                                <Label text="📈 +8% vs hier" styleClass="stats-change" style="-fx-text-fill: rgba(255,255,255,0.8);"/>
+                                            </children>
+                                        </VBox>
+                                        
+                                        <!-- Carte Stock -->
+                                        <VBox GridPane.columnIndex="2" styleClass="stats-card,warning" spacing="12" alignment="CENTER_LEFT">
+                                            <children>
+                                                <HBox spacing="10" alignment="CENTER_LEFT">
+                                                    <children>
+                                                        <Label text="📦" style="-fx-font-size: 28px;"/>
+                                                        <VBox spacing="4" alignment="CENTER_LEFT">
+                                                            <children>
+                                                                <Label fx:id="outOfStockValue" text="3" styleClass="stats-value"/>
+                                                                <Label text="Produits en rupture" styleClass="stats-label"/>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </HBox>
+                                                <Label fx:id="outOfStockLabel" text="⚠️ Attention requise" styleClass="stats-change" style="-fx-text-fill: rgba(255,255,255,0.8);"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </VBox>
+                        
+                        <!-- Actions Rapides Section -->
+                        <VBox spacing="20">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+                                        <Label text="⚡" style="-fx-font-size: 20px;"/>
+                                        <Label text="Actions rapides" styleClass="subtitle"/>
+                                    </children>
+                                </HBox>
+                                
+                                <GridPane hgap="20" vgap="20">
+                                    <columnConstraints>
+                                        <ColumnConstraints percentWidth="20"/>
+                                        <ColumnConstraints percentWidth="20"/>
+                                        <ColumnConstraints percentWidth="20"/>
+                                        <ColumnConstraints percentWidth="20"/>
+                                        <ColumnConstraints percentWidth="20"/>
+                                    </columnConstraints>
+                                    <children>
+                                        <VBox GridPane.columnIndex="0" styleClass="nav,scale-on-hover" alignment="CENTER" spacing="8">
+                                            <children>
+                                                <Button fx:id="productsBtn" text="📦" style="-fx-font-size: 32px; -fx-background-color: transparent; -fx-border-color: transparent;"/>
+                                                <Label text="Produits" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                <Label text="Gérer l'inventaire" styleClass="caption"/>
+                                            </children>
+                                        </VBox>
+                                        
+                                        <VBox GridPane.columnIndex="1" styleClass="nav,scale-on-hover" alignment="CENTER" spacing="8">
+                                            <children>
+                                                <Button fx:id="customersBtn" text="👥" style="-fx-font-size: 32px; -fx-background-color: transparent; -fx-border-color: transparent;"/>
+                                                <Label text="Clients" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                <Label text="Base clients" styleClass="caption"/>
+                                            </children>
+                                        </VBox>
+                                        
+                                        <VBox GridPane.columnIndex="2" styleClass="nav,scale-on-hover" alignment="CENTER" spacing="8">
+                                            <children>
+                                                <Button fx:id="salesBtn" text="💰" style="-fx-font-size: 32px; -fx-background-color: transparent; -fx-border-color: transparent;"/>
+                                                <Label text="Ventes" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                <Label text="Nouvelle vente" styleClass="caption"/>
+                                            </children>
+                                        </VBox>
+                                        
+                                        <VBox GridPane.columnIndex="3" styleClass="nav,scale-on-hover" alignment="CENTER" spacing="8">
+                                            <children>
+                                                <Button fx:id="usersBtn" text="⚙️" style="-fx-font-size: 32px; -fx-background-color: transparent; -fx-border-color: transparent;"/>
+                                                <Label text="Utilisateurs" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                <Label text="Gestion équipe" styleClass="caption"/>
+                                            </children>
+                                        </VBox>
+                                        
+                                        <VBox GridPane.columnIndex="4" styleClass="nav,scale-on-hover" alignment="CENTER" spacing="8">
+                                            <children>
+                                                <Button fx:id="salesHistoryBtn" text="📄" style="-fx-font-size: 32px; -fx-background-color: transparent; -fx-border-color: transparent;"/>
+                                                <Label text="Historique" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                <Label text="Rapports" styleClass="caption"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </VBox>
+                        
+                        <!-- Section Activité Récente -->
+                        <VBox spacing="20">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+                                        <Label text="🕒" style="-fx-font-size: 20px;"/>
+                                        <Label text="Activité récente" styleClass="subtitle"/>
+                                    </children>
+                                </HBox>
+                                
+                                <HBox spacing="24">
+                                    <children>
+                                        <!-- Ventes récentes -->
+                                        <VBox styleClass="card" spacing="16" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="8">
+                                                    <children>
+                                                        <Label text="📊" style="-fx-font-size: 18px;"/>
+                                                        <Label text="Dernières ventes" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                    </children>
+                                                </HBox>
+                                                
+                                                <VBox spacing="12">
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" spacing="10">
+                                                            <children>
+                                                                <Circle radius="4" style="-fx-fill: #10b981;"/>
+                                                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label text="Vente #2024-001" styleClass="body" style="-fx-font-weight: 500;"/>
+                                                                        <Label text="Client: Marie Dubois - 125.50€" styleClass="caption"/>
+                                                                    </children>
+                                                                </VBox>
+                                                                <Label text="il y a 5min" styleClass="caption"/>
+                                                            </children>
+                                                        </HBox>
+                                                        
+                                                        <HBox alignment="CENTER_LEFT" spacing="10">
+                                                            <children>
+                                                                <Circle radius="4" style="-fx-fill: #10b981;"/>
+                                                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label text="Vente #2024-002" styleClass="body" style="-fx-font-weight: 500;"/>
+                                                                        <Label text="Client: Jean Martin - 89.00€" styleClass="caption"/>
+                                                                    </children>
+                                                                </VBox>
+                                                                <Label text="il y a 12min" styleClass="caption"/>
+                                                            </children>
+                                                        </HBox>
+                                                        
+                                                        <HBox alignment="CENTER_LEFT" spacing="10">
+                                                            <children>
+                                                                <Circle radius="4" style="-fx-fill: #10b981;"/>
+                                                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label text="Vente #2024-003" styleClass="body" style="-fx-font-weight: 500;"/>
+                                                                        <Label text="Client: Sophie Laurent - 234.75€" styleClass="caption"/>
+                                                                    </children>
+                                                                </VBox>
+                                                                <Label text="il y a 28min" styleClass="caption"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                
+                                                <Button text="Voir toutes les ventes →" styleClass="button,primary" style="-fx-font-size: 12px; -fx-padding: 8px 16px;"/>
+                                            </children>
+                                        </VBox>
+                                        
+                                        <!-- Alertes stock -->
+                                        <VBox styleClass="card" spacing="16" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <HBox alignment="CENTER_LEFT" spacing="8">
+                                                    <children>
+                                                        <Label text="⚠️" style="-fx-font-size: 18px;"/>
+                                                        <Label text="Alertes stock" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                    </children>
+                                                </HBox>
+                                                
+                                                <VBox spacing="12">
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" spacing="10">
+                                                            <children>
+                                                                <Circle radius="4" style="-fx-fill: #ef4444;"/>
+                                                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label text="iPhone 15 Pro" styleClass="body" style="-fx-font-weight: 500;"/>
+                                                                        <Label text="Stock: 0 unités" styleClass="caption" style="-fx-text-fill: #ef4444;"/>
+                                                                    </children>
+                                                                </VBox>
+                                                                <Label text="Rupture" styleClass="caption" style="-fx-text-fill: #ef4444; -fx-font-weight: 600;"/>
+                                                            </children>
+                                                        </HBox>
+                                                        
+                                                        <HBox alignment="CENTER_LEFT" spacing="10">
+                                                            <children>
+                                                                <Circle radius="4" style="-fx-fill: #f59e0b;"/>
+                                                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label text="MacBook Air M2" styleClass="body" style="-fx-font-weight: 500;"/>
+                                                                        <Label text="Stock: 2 unités" styleClass="caption" style="-fx-text-fill: #f59e0b;"/>
+                                                                    </children>
+                                                                </VBox>
+                                                                <Label text="Faible" styleClass="caption" style="-fx-text-fill: #f59e0b; -fx-font-weight: 600;"/>
+                                                            </children>
+                                                        </HBox>
+                                                        
+                                                        <HBox alignment="CENTER_LEFT" spacing="10">
+                                                            <children>
+                                                                <Circle radius="4" style="-fx-fill: #f59e0b;"/>
+                                                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label text="AirPods Pro 2" styleClass="body" style="-fx-font-weight: 500;"/>
+                                                                        <Label text="Stock: 3 unités" styleClass="caption" style="-fx-text-fill: #f59e0b;"/>
+                                                                    </children>
+                                                                </VBox>
+                                                                <Label text="Faible" styleClass="caption" style="-fx-text-fill: #f59e0b; -fx-font-weight: 600;"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                                
+                                                <Button text="Gérer le stock →" styleClass="button,accent" style="-fx-font-size: 12px; -fx-padding: 8px 16px;"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        
+                        <!-- Section Graphiques de Performance -->
+                        <VBox spacing="20">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <children>
+                                        <Label text="📈" style="-fx-font-size: 20px;"/>
+                                        <Label text="Performance cette semaine" styleClass="subtitle"/>
+                                    </children>
+                                </HBox>
+                                
+                                <HBox spacing="24">
+                                    <children>
+                                        <!-- Graphique des ventes -->
+                                        <VBox styleClass="card,glass" spacing="20" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <VBox spacing="8">
+                                                    <children>
+                                                        <Label text="💹 Ventes par jour" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                        <Label text="Évolution des ventes sur 7 jours" styleClass="caption"/>
+                                                    </children>
+                                                </VBox>
+                                                
+                                                <!-- Graphique simulé avec des barres -->
+                                                <HBox spacing="8" alignment="BOTTOM_CENTER">
+                                                    <children>
+                                                        <VBox spacing="4" alignment="BOTTOM_CENTER">
+                                                            <children>
+                                                                <Rectangle width="30" height="60" style="-fx-fill: linear-gradient(to top, #667eea, #764ba2); -fx-arc-width: 6; -fx-arc-height: 6;"/>
+                                                                <Label text="Lun" styleClass="caption"/>
+                                                            </children>
+                                                        </VBox>
+                                                        <VBox spacing="4" alignment="BOTTOM_CENTER">
+                                                            <children>
+                                                                <Rectangle width="30" height="45" style="-fx-fill: linear-gradient(to top, #667eea, #764ba2); -fx-arc-width: 6; -fx-arc-height: 6;"/>
+                                                                <Label text="Mar" styleClass="caption"/>
+                                                            </children>
+                                                        </VBox>
+                                                        <VBox spacing="4" alignment="BOTTOM_CENTER">
+                                                            <children>
+                                                                <Rectangle width="30" height="80" style="-fx-fill: linear-gradient(to top, #667eea, #764ba2); -fx-arc-width: 6; -fx-arc-height: 6;"/>
+                                                                <Label text="Mer" styleClass="caption"/>
+                                                            </children>
+                                                        </VBox>
+                                                        <VBox spacing="4" alignment="BOTTOM_CENTER">
+                                                            <children>
+                                                                <Rectangle width="30" height="70" style="-fx-fill: linear-gradient(to top, #667eea, #764ba2); -fx-arc-width: 6; -fx-arc-height: 6;"/>
+                                                                <Label text="Jeu" styleClass="caption"/>
+                                                            </children>
+                                                        </VBox>
+                                                        <VBox spacing="4" alignment="BOTTOM_CENTER">
+                                                            <children>
+                                                                <Rectangle width="30" height="90" style="-fx-fill: linear-gradient(to top, #667eea, #764ba2); -fx-arc-width: 6; -fx-arc-height: 6;"/>
+                                                                <Label text="Ven" styleClass="caption"/>
+                                                            </children>
+                                                        </VBox>
+                                                        <VBox spacing="4" alignment="BOTTOM_CENTER">
+                                                            <children>
+                                                                <Rectangle width="30" height="85" style="-fx-fill: linear-gradient(to top, #667eea, #764ba2); -fx-arc-width: 6; -fx-arc-height: 6;"/>
+                                                                <Label text="Sam" styleClass="caption"/>
+                                                            </children>
+                                                        </VBox>
+                                                        <VBox spacing="4" alignment="BOTTOM_CENTER">
+                                                            <children>
+                                                                <Rectangle width="30" height="55" style="-fx-fill: linear-gradient(to top, #667eea, #764ba2); -fx-arc-width: 6; -fx-arc-height: 6;"/>
+                                                                <Label text="Dim" styleClass="caption"/>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        
+                                        <!-- Top produits -->
+                                        <VBox styleClass="card" spacing="20" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <VBox spacing="8">
+                                                    <children>
+                                                        <Label text="🏆 Top produits" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                        <Label text="Les plus vendus cette semaine" styleClass="caption"/>
+                                                    </children>
+                                                </VBox>
+                                                
+                                                <VBox spacing="16">
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" spacing="12">
+                                                            <children>
+                                                                <Circle radius="12" style="-fx-fill: linear-gradient(135deg, #ffd700, #ffb347);"/>
+                                                                <Label text="1" style="-fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px;" alignment="CENTER"/>
+                                                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label text="iPhone 15 Pro Max" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                                        <Label text="15 ventes - 18,750€" styleClass="caption" style="-fx-text-fill: #10b981;"/>
+                                                                    </children>
+                                                                </VBox>
+                                                            </children>
+                                                        </HBox>
+                                                        
+                                                        <HBox alignment="CENTER_LEFT" spacing="12">
+                                                            <children>
+                                                                <Circle radius="12" style="-fx-fill: linear-gradient(135deg, #c0c0c0, #9e9e9e);"/>
+                                                                <Label text="2" style="-fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px;" alignment="CENTER"/>
+                                                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label text="MacBook Air M2" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                                        <Label text="8 ventes - 12,000€" styleClass="caption" style="-fx-text-fill: #10b981;"/>
+                                                                    </children>
+                                                                </VBox>
+                                                            </children>
+                                                        </HBox>
+                                                        
+                                                        <HBox alignment="CENTER_LEFT" spacing="12">
+                                                            <children>
+                                                                <Circle radius="12" style="-fx-fill: linear-gradient(135deg, #cd7f32, #a0522d);"/>
+                                                                <Label text="3" style="-fx-text-fill: white; -fx-font-weight: 700; -fx-font-size: 12px;" alignment="CENTER"/>
+                                                                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                                                                    <children>
+                                                                        <Label text="AirPods Pro 2" styleClass="body" style="-fx-font-weight: 600;"/>
+                                                                        <Label text="12 ventes - 3,600€" styleClass="caption" style="-fx-text-fill: #10b981;"/>
+                                                                    </children>
+                                                                </VBox>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        
+                        <!-- Footer avec actions supplémentaires -->
+                        <VBox spacing="20">
+                            <children>
+                                <Separator style="-fx-background-color: rgba(226,232,240,0.5);"/>
+                                
+                                <HBox spacing="16" alignment="CENTER">
+                                    <children>
+                                        <Button text="📊 Rapport détaillé" styleClass="button"/>
+                                        <Button text="⚙️ Paramètres" styleClass="button"/>
+                                        <Button text="📞 Support" styleClass="button"/>
+                                        <Button text="🔄 Synchroniser" styleClass="button,primary"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
     </center>
 </BorderPane>

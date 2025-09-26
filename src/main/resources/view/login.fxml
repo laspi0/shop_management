@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.shopmanager.controller.LoginController">
-    <center>
-        <VBox alignment="CENTER" spacing="16.0">
-            <children>
-                <Label text="Shop Manager" styleClass="title" />
-                <VBox spacing="8">
-                    <children>
-                        <TextField fx:id="emailField" promptText="Email" />
-                        <PasswordField fx:id="passwordField" promptText="Mot de passe" />
-                        <Label fx:id="errorLabel" styleClass="error" />
-                        <Button fx:id="loginButton" text="Se connecter" onAction="#onLogin" styleClass="primary"/>
-                    </children>
-                </VBox>
-            </children>
-        </VBox>
-    </center>
-    <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
-</BorderPane>
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.shopmanager.controller.LoginController"
+           styleClass="root-pane">
+
+    <VBox alignment="CENTER" spacing="24" maxWidth="400" styleClass="card,glass">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+        <children>
+            <!-- Header -->
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="📊" style="-fx-font-size: 40px;"/>
+                <Label text="Shop Manager" styleClass="title"/>
+                <Label text="Connectez-vous pour accéder à votre tableau de bord" styleClass="caption"/>
+            </VBox>
+
+            <!-- Form -->
+            <VBox spacing="16">
+                <children>
+                    <VBox spacing="4">
+                        <Label text="Adresse e-mail" styleClass="form-label"/>
+                        <TextField fx:id="emailField" promptText="admin@shop.com" styleClass="form-input"/>
+                    </VBox>
+                    <VBox spacing="4">
+                        <Label text="Mot de passe" styleClass="form-label"/>
+                        <PasswordField fx:id="passwordField" promptText="••••••••" styleClass="form-input"/>
+                    </VBox>
+                </children>
+            </VBox>
+
+            <!-- Error Label -->
+            <Label fx:id="errorLabel" styleClass="error" managed="false"/>
+
+            <!-- Login Button -->
+            <Button fx:id="loginButton" text="Se connecter" onAction="#onLogin" styleClass="button,primary" maxWidth="Infinity"/>
+
+        </children>
+    </VBox>
+
+</StackPane>
