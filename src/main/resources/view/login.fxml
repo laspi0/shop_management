@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.shopmanager.controller.LoginController">
+    <center>
+        <VBox alignment="CENTER" spacing="16.0">
+            <children>
+                <Label text="Shop Manager" styleClass="title" />
+                <VBox spacing="8">
+                    <children>
+                        <TextField fx:id="emailField" promptText="Email" />
+                        <PasswordField fx:id="passwordField" promptText="Mot de passe" />
+                        <Label fx:id="errorLabel" styleClass="error" />
+                        <Button fx:id="loginButton" text="Se connecter" onAction="#onLogin" styleClass="primary"/>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </center>
+    <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+</BorderPane>

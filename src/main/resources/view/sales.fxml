@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.shopmanager.controller.SalesController">
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="appbar">
+            <children>
+                <Button fx:id="backBtn" text="← Retour" />
+                <Label text="Ventes" styleClass="title" />
+                <Pane HBox.hgrow="ALWAYS" />
+                <Label text="Client:" />
+                <ComboBox fx:id="customerCombo" prefWidth="220" />
+            </children>
+            <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+        </HBox>
+    </top>
+    <center>
+        <GridPane hgap="12" vgap="12">
+            <padding>
+                <Insets top="12" right="12" bottom="12" left="12"/>
+            </padding>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="60" />
+                <ColumnConstraints percentWidth="40" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="70" />
+                <RowConstraints percentHeight="30" />
+            </rowConstraints>
+            <children>
+                <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="8">
+                    <children>
+                        <Label text="Produits" />
+                        <TableView fx:id="productsTable">
+                            <columns>
+                                <TableColumn fx:id="pName" text="Nom" prefWidth="220" />
+                                <TableColumn fx:id="pPrice" text="Prix" prefWidth="100" />
+                                <TableColumn fx:id="pQty" text="Stock" prefWidth="80" />
+                            </columns>
+                        </TableView>
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <children>
+                                <Label text="Qté:" />
+                                <Spinner fx:id="qtySpinner" prefWidth="100" />
+                                <Button fx:id="addToCartBtn" text="Ajouter au panier" styleClass="primary" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="8">
+                    <children>
+                        <Label text="Panier" />
+                        <TableView fx:id="cartTable">
+                            <columns>
+                                <TableColumn fx:id="cName" text="Produit" prefWidth="200" />
+                                <TableColumn fx:id="cQty" text="Qté" prefWidth="80" />
+                                <TableColumn fx:id="cPrice" text="Total" prefWidth="100" />
+                            </columns>
+                        </TableView>
+                        <HBox alignment="CENTER_RIGHT" spacing="16">
+                            <children>
+                                <Label fx:id="vatLabel" text="TVA: 0.00" />
+                                <Label fx:id="totalLabel" text="Total: 0.00" styleClass="title" />
+                                <Button fx:id="finalizeBtn" text="Finaliser la vente" styleClass="primary" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+    </center>
+</BorderPane>

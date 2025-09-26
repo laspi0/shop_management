@@ -1,0 +1,16 @@
+:root {
+    -radius: 10px;
+    -fx-background-insets: 0;
+}
+
+.title { -fx-font-size: 22px; -fx-font-weight: bold; }
+.error { -fx-text-fill: #e74c3c; }
+
+.button.primary { -fx-background-color: -accent; -fx-text-fill: white; -fx-background-radius: 8; }
+.button.nav { -fx-background-radius: 8; }
+
+.card { -fx-background-radius: 12; -fx-padding: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 2); }
+
+.appbar { -fx-background-color: -surface-elev-1; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.2, 0, 2); }
+
+.text-field, .password-field { -fx-background-radius: 8; -fx-padding: 10; }

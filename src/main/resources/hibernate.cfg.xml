@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- JDBC settings will be set programmatically based on application.properties -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Entities -->
+        <mapping class="com.shopmanager.model.User"/>
+        <mapping class="com.shopmanager.model.Role"/>
+        <mapping class="com.shopmanager.model.Category"/>
+        <mapping class="com.shopmanager.model.Product"/>
+        <mapping class="com.shopmanager.model.Customer"/>
+        <mapping class="com.shopmanager.model.Sale"/>
+        <mapping class="com.shopmanager.model.SaleItem"/>
+    </session-factory>
+</hibernate-configuration>

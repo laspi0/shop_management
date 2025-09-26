@@ -1,0 +1,14 @@
+.root {
+    -bg: #f6f7fb;
+    -surface: #ffffff;
+    -surface-elev-1: #ffffff;
+    -text: #1f2937;
+    -muted: #6b7280;
+    -accent: #3b82f6;
+
+    -fx-background-color: -bg;
+    -fx-text-fill: -text;
+}
+
+.card { -fx-background-color: -surface; }
+.button { -fx-background-color: -surface; -fx-text-fill: -text; }

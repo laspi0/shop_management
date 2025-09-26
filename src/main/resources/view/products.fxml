@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.shopmanager.controller.ProductsController">
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="appbar">
+            <children>
+                <Button fx:id="backBtn" text="← Retour" />
+                <Label text="Produits" styleClass="title" />
+                <Pane HBox.hgrow="ALWAYS" />
+                <TextField fx:id="searchField" promptText="Rechercher..." />
+                <ComboBox fx:id="categoryFilter" promptText="Catégorie" />
+                <Button fx:id="addBtn" text="Ajouter" styleClass="primary" />
+                <Button fx:id="editBtn" text="Modifier" />
+                <Button fx:id="deleteBtn" text="Supprimer" />
+            </children>
+            <padding><Insets top="12" right="16" bottom="12" left="16"/></padding>
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <children>
+                <TableView fx:id="table">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="60" />
+                        <TableColumn fx:id="colName" text="Nom" prefWidth="240" />
+                        <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="160" />
+                        <TableColumn fx:id="colPrice" text="Prix" prefWidth="100" />
+                        <TableColumn fx:id="colQty" text="Qté" prefWidth="80" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
