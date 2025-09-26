@@ -102,7 +102,7 @@ public class DashboardController {
         double revenueToday = saleService.getRevenueToday();
         long outOfStock = productService.countOutOfStock();
 
-        if (salesTodayValue != null) salesTodayValue.setText(String.valueOf(outOfStock));
+        if (salesTodayValue != null) salesTodayValue.setText(String.valueOf(salesToday));
         if (revenueValue != null) revenueValue.setText(String.format("%.2f MRU", revenueToday));
         if (outOfStockValue != null) outOfStockValue.setText(String.valueOf(outOfStock));
 
