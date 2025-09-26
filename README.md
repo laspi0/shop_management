@@ -95,13 +95,14 @@ Les comptes par défaut sont créés/garantis au démarrage (méthode `ensureDef
 - Produits: CRUD, recherche, filtre par catégorie
 - Clients: CRUD, recherche
 - Ventes: sélection produits, panier, calcul TVA, décrémentation du stock, génération de facture PDF
+- Historique des ventes: Consultation et filtrage des ventes passées.
 - Thèmes: Light/Dark avec toggle
 - Navigation: boutons "← Retour" dans chaque module pour revenir au Dashboard
 
 ## Structure du projet
 - `src/main/java/com/shopmanager/`
   - `core/` gestion scène (`SceneManager`), config (`AppConfig`, `HibernateUtil`)
-  - `controller/` contrôleurs JavaFX (Login, Dashboard, Products, Customers, Sales)
+  - `controller/` contrôleurs JavaFX (Login, Dashboard, Products, Customers, Sales, SalesHistory)
   - `model/` entités JPA (`User`, `Role`, `Category`, `Product`, `Customer`, `Sale`, `SaleItem`)
   - `repository/` accès base (BaseRepository + Repositories dédiés)
   - `service/` logique métier (Auth, Product, Customer, Sale, Report)
